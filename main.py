@@ -11,11 +11,11 @@ from ast import literal_eval
 
 app = Flask(__name__)
 
-CONSUMER_KEY = "1BfWCx0k6kmEhGF7FpYdJuyT0"
-CONSUMER_SECRET = "C7AhHYjykXPaUX8W9aUMEbJbLyKdlXcHNnqwxQriCLj5nu63SZ"
+CONSUMER_KEY = "gnb9IOOZTSXpFE5F8hR8z1Wrz"
+CONSUMER_SECRET = "darQbZ7mpZXtFsjzSQX7JEmUzIfnOQv3QaSymW7WKkZaBupwjZ"
 
-ACCESS_TOKEN = "1549848476049350657-ywJ8GMhEL4ehhWi0yv8vhkBy9GvqW8"
-ACCESS_TOKEN_SECRET = "QKgjqgePLpHC2CXUm3iRpyCCRjaRQ8sU3eZp6P3SoV3fg"
+ACCESS_TOKEN = "1549848476049350657-j6BPeuZY7lul8x0c16xqqIGziq1FOM"
+ACCESS_TOKEN_SECRET = "yBKplNr0klaJ4BDfPlAHBuVtXJPSxn2f8tjNJjSbYKVBh"
 
 RESPONSES = ["water thaagu", "water thaagava?", "drink water"]
 SALUTATIONS = ["bro", "vro", "mowa", "mawa"]

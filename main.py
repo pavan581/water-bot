@@ -40,7 +40,7 @@ def home():
             username = '@'+username
         try:
             api.update_status(" ".join([choice(RESPONSES), choice(SALUTATIONS), username]).capitalize())
-        except tweepy.errors.TweepError as e:
+        except tweepy.TweepError as e:
             tweep_error = literal_eval(e.reason.strip(']['))
             if tweep_error['code']==187:
                 tweep_error['message']="Someone has already tagged the person! Please try after sometime."

@@ -17,8 +17,18 @@ CONSUMER_SECRET = "darQbZ7mpZXtFsjzSQX7JEmUzIfnOQv3QaSymW7WKkZaBupwjZ"
 ACCESS_TOKEN = "1549848476049350657-j6BPeuZY7lul8x0c16xqqIGziq1FOM"
 ACCESS_TOKEN_SECRET = "yBKplNr0klaJ4BDfPlAHBuVtXJPSxn2f8tjNJjSbYKVBh"
 
-RESPONSES = ["water thaagu", "water thaagava?", "drink water"]
-SALUTATIONS = ["bro", "vro", "mowa", "mawa"]
+RESPONSES = [
+    "water thaagu", "water thaagava?", "drink water", 
+    "manchi neellu thaagu", "manchi neellu thaagava",
+    "edavataniki kantlo neellu vundali kadha konchem water thaagu",
+    "go and drink water",
+]
+SALUTATIONS = ["bro", "vro", "mowa", "mawa", "friend", "da", "ra"]
+
+
+root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+media_path = root+"/static/"
+media_list = os.listdir(media_path)
 
 tweep_error= {'code': None, 'message':None}
 
@@ -39,7 +49,8 @@ def home():
         if username[0] != '@':
             username = '@'+username
         try:
-            api.update_status(" ".join([choice(RESPONSES), choice(SALUTATIONS), username]).capitalize())
+            media = api.media_upload(filename=root+'/static/'+choice(media_list))
+            api.update_status(" ".join([username+",", choice(RESPONSES), choice(SALUTATIONS)]).capitalize(), media_ids=[media.media_id_string])
         except tweepy.TweepError as e:
             tweep_error = literal_eval(e.reason.strip(']['))
             if tweep_error['code']==187:

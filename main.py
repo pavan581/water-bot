@@ -5,7 +5,7 @@ from werkzeug.exceptions import HTTPException
 
 import tweepy
 import os
-from random import choice
+from random import Random
 from ast import literal_eval
 
 
@@ -20,7 +20,6 @@ ACCESS_TOKEN_SECRET = "yBKplNr0klaJ4BDfPlAHBuVtXJPSxn2f8tjNJjSbYKVBh"
 RESPONSES = [
     "water thaagu", "water thaagava?", "drink water", 
     "manchi neellu thaagu", "manchi neellu thaagava",
-    "edavataniki kantlo neellu vundali kadha konchem water thaagu",
     "go and drink water",
 ]
 SALUTATIONS = ["bro", "vro", "mowa", "mawa", "friend", "da", "ra"]
@@ -31,6 +30,7 @@ media_path = root+"/static/"
 media_list = os.listdir(media_path)
 
 tweep_error= {'code': None, 'message':None}
+rand = Random(420)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -48,9 +48,18 @@ def home():
 
         if username[0] != '@':
             username = '@'+username
+            
         try:
-            media = api.media_upload(filename=root+'/static/'+choice(media_list))
-            api.update_status(" ".join([username+",", choice(RESPONSES), choice(SALUTATIONS)]).capitalize(), media_ids=[media.media_id_string])
+            type = rand.choice(["text", "media-text", "media"])
+            if type == "text":
+                api.update_status(" ".join([username+",", rand.choice(RESPONSES), rand.choice(SALUTATIONS)]).capitalize())
+            elif type == "media-text":
+                media = api.media_upload(filename=root+'/static/'+rand.choice(media_list))
+                api.update_status(" ".join([username+",", rand.choice(RESPONSES), rand.choice(SALUTATIONS)]).capitalize(), media_ids=[media.media_id_string])
+            else:
+                media = api.media_upload(filename=root+'/static/'+rand.choice(media_list))
+                api.update_status(username, media_ids=[media.media_id_string])
+
         except tweepy.TweepError as e:
             tweep_error = literal_eval(e.reason.strip(']['))
             if tweep_error['code']==187:
